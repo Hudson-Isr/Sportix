@@ -1,4 +1,4 @@
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, LogOut, UserRoundCog } from 'lucide-react'
 
 import { Button } from './ui/button'
 import {
@@ -6,6 +6,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 
@@ -28,7 +29,15 @@ export function AccountMenu() {
             teste@teste.com
           </span>
         </DropdownMenuLabel>
-        <DropdownMenuItem></DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <UserRoundCog className="mr-2 h-4 w-4" />
+          <span>Perfil do Usuário</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="text-rose-500 dark:text-rose-400">
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>Sair</span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
