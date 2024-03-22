@@ -46,7 +46,7 @@ export function SignIn() {
         <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              Agende já sua quada!
+              Agende já sua quadra!
             </h1>
             <p className="text-sm text-muted-foreground">
               Verifiquei o melhor horario para sua partida!
