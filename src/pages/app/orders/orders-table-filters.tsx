@@ -32,7 +32,7 @@ export function OrderTableFilters() {
         Filtrar Resultados
       </Button>
 
-      <Button type="button" variant="outline" size="xs">
+      <Button type="button" variant="destructive" size="xs">
         <X className="2-4 mr-2 h-4" />
         Remover Filtros
       </Button>

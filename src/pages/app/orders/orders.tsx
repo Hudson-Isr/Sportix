@@ -15,7 +15,7 @@ import { OrderTableRow } from './orders-table-row'
 export function Orders() {
   return (
     <>
-      <Helmet title="Horarios" />
+      <Helmet title="Pagamentos" />
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Pagamentos</h1>
 

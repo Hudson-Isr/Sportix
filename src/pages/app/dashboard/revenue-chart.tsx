@@ -39,7 +39,7 @@ export function RevenueChart() {
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={240}>
-          <BarChart data={data} style={{ fontSize: 12 }}>
+          <BarChart data={data} style={{ fontSize: 10 }}>
             <XAxis dataKey="data" tickLine={false} axisLine={false} dy={16} />
             <YAxis
               stroke="#888"

@@ -20,6 +20,7 @@ export function OrderDetails() {
       <DialogHeader>
         <DialogTitle>ARENA: ___</DialogTitle>
         <DialogDescription>Detalhe do pedido (Arena 01)</DialogDescription>
+        <DialogDescription>Filial: Juazeiro</DialogDescription>
       </DialogHeader>
 
       <div className="space-y-6">
