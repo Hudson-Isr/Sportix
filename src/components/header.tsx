@@ -1,4 +1,4 @@
-import { Banknote, CalendarDays, Home, LandPlot } from 'lucide-react'
+import { Banknote, BookCheck, CalendarDays, Home, LandPlot } from 'lucide-react'
 
 import { AccountMenu } from './account-menu'
 import { NavLink } from './nav-link'
@@ -20,11 +20,15 @@ export function Header() {
             <Home className="h-4 w-4" />
             Início
           </NavLink>
+          <NavLink to="/teste">
+            <BookCheck className="h-4 w-4" />
+            Reservas
+          </NavLink>
           <NavLink to="/orders">
             <Banknote className="h-4 w-4" />
             Pagamentos
           </NavLink>
-          <NavLink to="/test">
+          <NavLink to="/schedules">
             <CalendarDays className="h-4 w-4" />
             Horarios
           </NavLink>
