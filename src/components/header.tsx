@@ -20,7 +20,7 @@ export function Header() {
             <Home className="h-4 w-4" />
             Início
           </NavLink>
-          <NavLink to="/teste">
+          <NavLink to="/reservations">
             <BookCheck className="h-4 w-4" />
             Reservas
           </NavLink>
@@ -31,6 +31,10 @@ export function Header() {
           <NavLink to="/schedules">
             <CalendarDays className="h-4 w-4" />
             Horarios
+          </NavLink>
+          <NavLink to="/teste">
+            <CalendarDays className="h-4 w-4" />
+            testes
           </NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">

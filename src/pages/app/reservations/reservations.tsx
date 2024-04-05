@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
 import { Pagination } from '@/components/pagination'
@@ -10,29 +9,30 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { SchedulesTableFilters } from './schedules-table-filters'
-import { SchedulesTableRow } from './schedules-table-row'
+import { ReservationsTableFilters } from './reservation-table-filters'
+import { ReservationsTableRow } from './reservations-table-row'
 
-export function Schedules() {
+export function Reservations() {
   return (
     <>
-      <Helmet title="Horarios" />
+      <Helmet title="Reservas" />
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold tracking-tight">Horarios</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Reservas</h1>
         <div className="space-y-2.5">
-          <SchedulesTableFilters />
+          <ReservationsTableFilters />
           <div className="boder rounded-md">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Dia</TableHead>
-                  <TableHead>Horario</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableHead className="w-[140px]">Dia</TableHead>
+                  <TableHead className="w-[140px]">Horario</TableHead>
+                  <TableHead className="w-[140px]">Cliente</TableHead>
+                  <TableHead className="w-[140px]">Recorrente</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {Array.from({ length: 1 }).map((_, i) => {
-                  return <SchedulesTableRow key={i} />
+                  return <ReservationsTableRow key={i} />
                 })}
               </TableBody>
             </Table>

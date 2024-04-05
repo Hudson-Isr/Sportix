@@ -1,3 +1,11 @@
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { CalendarIcon, Search, X } from 'lucide-react'
@@ -6,6 +14,7 @@ import { DateRange } from 'react-day-picker'
 
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
+import { Input } from '@/components/ui/input'
 import {
   Popover,
   PopoverContent,
@@ -20,7 +29,7 @@ import {
 } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 
-export function SchedulesTableFilters({
+export function ReservationsTableFilters({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
@@ -30,6 +39,7 @@ export function SchedulesTableFilters({
       new Date().getDay(),
     ),
   })
+
   return (
     <form className="flex items-center gap-2">
       <span className="text-sm font-semibold"> Filtros:</span>
@@ -66,18 +76,19 @@ export function SchedulesTableFilters({
               defaultMonth={date?.from}
               selected={date}
               onSelect={setDate}
+              numberOfMonths={2}
               locale={ptBR}
             />
           </PopoverContent>
         </Popover>
       </div>
       <Select defaultValue="all">
-        <SelectTrigger className="h-8 w-[200px]">
+        <SelectTrigger className="h-8 w-[180px]">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">Todos Status</SelectItem>
-          <SelectItem value="pending">Livre</SelectItem>
+          <SelectItem value="pending">Fixo</SelectItem>
           <SelectItem value="reserved">Reservado</SelectItem>
           <SelectItem value="free">Jogo Livre</SelectItem>
         </SelectContent>
@@ -93,5 +104,45 @@ export function SchedulesTableFilters({
         Remover Filtros
       </Button>
     </form>
+  )
+}
+
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+}
+
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  )
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters,
+    },
+  })
+
+  return (
+    <>
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter emails..."
+          value={(table.getColumn('Status')?.getFilterValue() as string) ?? ''}
+          onChange={(event) =>
+            table.getColumn('Status')?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
+    </>
   )
 }
