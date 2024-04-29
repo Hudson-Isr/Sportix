@@ -24,11 +24,7 @@ export function SchedulesTableFilters({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      new Date().getDay(),
-    ),
+    from: new Date(),
   })
   return (
     <form className="flex items-center gap-2">

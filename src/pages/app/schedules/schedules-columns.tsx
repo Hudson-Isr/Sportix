@@ -61,18 +61,18 @@ export const columns: ColumnDef<Payment>[] = [
       <div className="capitalize">{row.getValue('status')}</div>
     ),
   },
-  {
-    accessorKey: 'amount',
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue('amount'))
+  // {
+  //   accessorKey: 'amount',
+  //   header: () => <div className="text-right">Amount</div>,
+  //   cell: ({ row }) => {
+  //     const amount = parseFloat(row.getValue('amount'))
 
-      const formatted = new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format(amount)
+  //     const formatted = new Intl.NumberFormat('pt-BR', {
+  //       style: 'currency',
+  //       currency: 'BRL',
+  //     }).format(amount)
 
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
+  //     return <div className="text-right font-medium">{formatted}</div>
+  //   },
+  // },
 ]

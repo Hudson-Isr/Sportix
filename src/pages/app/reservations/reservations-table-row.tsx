@@ -5,7 +5,7 @@ export function ReservationsTableRow() {
     <>
       <TableRow>
         <TableCell className="text-muted-foreground">01/04/2024</TableCell>
-        <TableCell className="text-muted-foreground">8 horas</TableCell>
+        <TableCell className="font-bold text-muted-foreground">8:00</TableCell>
         <TableCell className="text-muted-foreground">
           Hudson Israel França Costa
         </TableCell>
@@ -20,7 +20,7 @@ export function ReservationsTableRow() {
       {/* Adicionando mais casos de teste */}
       <TableRow>
         <TableCell className="text-muted-foreground">01/04/2024</TableCell>
-        <TableCell className="text-muted-foreground">9 horas</TableCell>
+        <TableCell className="font-bold text-muted-foreground">9:00</TableCell>
         <TableCell className="text-muted-foreground">
           Felipe de Oliveira Leite
         </TableCell>
