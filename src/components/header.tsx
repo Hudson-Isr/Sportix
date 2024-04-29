@@ -1,3 +1,4 @@
+import { IconSoccerField } from '@tabler/icons-react'
 import { Banknote, BookCheck, CalendarDays, Home, LandPlot } from 'lucide-react'
 
 import { AccountMenu } from './account-menu'
@@ -31,6 +32,10 @@ export function Header() {
           <NavLink to="/schedules">
             <CalendarDays className="h-4 w-4" />
             Horarios
+          </NavLink>
+          <NavLink to="/courts">
+            <IconSoccerField className="h-4 w-4" />
+            Quadras
           </NavLink>
           <NavLink to="/teste">
             <CalendarDays className="h-4 w-4" />

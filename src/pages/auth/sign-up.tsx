@@ -1,18 +1,22 @@
+import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { signUp } from '@/api/register'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 const signUpForm = z.object({
+  name: z.string(),
+  cpf: z.string(),
   email: z.string().email(),
-  phone: z.string(),
-  fullName: z.string(),
-  password: z.string(),
+  phoneNumber: z.string(),
+  password1: z.string(),
+  password2: z.string(),
 })
 
 type SignUpForm = z.infer<typeof signUpForm>
@@ -26,14 +30,25 @@ export function SignUp() {
     formState: { isSubmitting },
   } = useForm<SignUpForm>()
 
-  async function handleSignUp() {
+  const { mutateAsync: registerUser } = useMutation({
+    mutationFn: signUp,
+  })
+
+  async function handleSignUp(data: SignUpForm) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await registerUser({
+        email: data.email,
+        password1: data.password1,
+        password2: data.password2,
+        cpf: data.cpf,
+        name: data.name,
+        phoneNumber: data.phoneNumber,
+      })
 
       toast.success('Conta criada com sucesso!', {
         action: {
           label: 'Login',
-          onClick: () => navigate('/sign-in'),
+          onClick: () => navigate(`/sign-in?email=${data.email}`),
         },
       })
     } catch {
@@ -58,13 +73,27 @@ export function SignUp() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
+          <form
+            method="post"
+            onSubmit={handleSubmit(handleSignUp)}
+            className="space-y-4"
+          >
             <div className="space-y-2">
-              <Label htmlFor="fullName">Nome Completo</Label>
+              <Label htmlFor="name">Nome Completo</Label>
               <Input
-                id="fullName"
+                id="name"
                 type="text"
-                {...register('fullName')}
+                {...register('name')}
+                placeholder="Digite seu nome completo aqui!"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="name">CPF</Label>
+              <Input
+                id="cpf"
+                type="text"
+                {...register('cpf')}
                 placeholder="Digite seu nome completo aqui!"
               />
             </div>
@@ -80,12 +109,32 @@ export function SignUp() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">Telefone</Label>
+              <Label htmlFor="phoneNumber">Telefone</Label>
               <Input
-                id="phone"
+                id="phoneNumber"
                 type="tel"
-                {...register('phone')}
+                {...register('phoneNumber')}
                 placeholder="(xx) 9 9999-9999"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password1">Senha</Label>
+              <Input
+                id="password1"
+                type="password"
+                {...register('password1')}
+                placeholder="Crie sua Senha"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password2">Comfirme sua Senha</Label>
+              <Input
+                id="password2"
+                type="password"
+                {...register('password2')}
+                placeholder="Repita a senha"
               />
             </div>
 

@@ -9,9 +9,9 @@ export function AuthLayout() {
           <LandPlot className="h-5 w-5" />
           <span className="font-semibold">Sportix</span>
         </div>
-        {/* <div className="flex w-[600px] p-3">
-          <img src="./public/img-teste.jpg" alt="" />
-        </div> */}
+        <div className="flex h-[800px] w-[800px]">
+          <video src="./public/video-teste.mp4" autoPlay muted loop />
+        </div>
         <footer className="text-sm">
           &copy; Sportix - {new Date().getFullYear()}
         </footer>
