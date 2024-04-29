@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { AppLayout } from './pages/_layouts/app'
 import { AuthLayout } from './pages/_layouts/auth'
 import { NotFound } from './pages/404'
+import { Courts } from './pages/app/courts/courts'
 import { Dashboard } from './pages/app/dashboard/dashboard'
 import { Orders } from './pages/app/orders/orders'
 import { Reservations } from './pages/app/reservations/reservations'
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: '/schedules', element: <Schedules /> },
       { path: '/reservations', element: <Reservations /> },
       { path: '/teste', element: <DataTableDemo /> },
+      { path: '/courts', element: <Courts /> },
     ],
   },
 
