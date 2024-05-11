@@ -24,7 +24,6 @@ export function Schedules() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Dia</TableHead>
                   <TableHead>Horario</TableHead>
                   <TableHead>Status</TableHead>
                 </TableRow>

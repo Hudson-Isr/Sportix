@@ -3,9 +3,9 @@ import { TableCell, TableRow } from '@/components/ui/table'
 export function SchedulesTableRow() {
   return (
     <>
+    <div className="flex items-center gap-2 flex-col grid grid-cols-2">
       <TableRow>
-        <TableCell className="text-muted-foreground">01/04/2024</TableCell>
-        <TableCell className="font-bold text-muted-foreground">8:00</TableCell>
+        <Button className='btn'>8:00</Button>
         <TableCell>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-green-400"></span>
@@ -16,7 +16,6 @@ export function SchedulesTableRow() {
 
       {/* Adicionando mais casos de teste */}
       <TableRow>
-        <TableCell className="text-muted-foreground">01/04/2024</TableCell>
         <TableCell className="font-bold text-muted-foreground">9:00</TableCell>
         <TableCell>
           <div className="flex items-center gap-2">
@@ -28,7 +27,6 @@ export function SchedulesTableRow() {
 
       {/* Adicionando mais casos de teste */}
       <TableRow>
-        <TableCell className="text-muted-foreground">01/04/2024</TableCell>
         <TableCell className="font-bold text-muted-foreground">10:00</TableCell>
         <TableCell>
           <div className="flex items-center gap-2">
@@ -39,6 +37,7 @@ export function SchedulesTableRow() {
           </div>
         </TableCell>
       </TableRow>
+      </div>
     </>
   )
 }

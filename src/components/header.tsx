@@ -1,52 +1,41 @@
-import { IconSoccerField } from '@tabler/icons-react'
-import { Banknote, BookCheck, CalendarDays, Home, LandPlot } from 'lucide-react'
-
-import { AccountMenu } from './account-menu'
 import { NavLink } from './nav-link'
-import { ThemeToggle } from './theme/theme-toggle'
-import { Separator } from './ui/separator'
+
+"use client"
+
+import * as React from "react"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export interface HeaderProps {}
 
 export function Header() {
+  const [position, setPosition] = React.useState("bottom")
+
   return (
-    <div className="border-b">
-      <div className="flex h-14 items-center gap-6 px-6">
-        <LandPlot className="h-5 w-5" />
-
-        <Separator orientation="vertical" className="h-6" />
-
-        <nav className="flex items-center space-x-4 lg:space-x-6">
-          <NavLink to="/">
-            <Home className="h-4 w-4" />
-            Início
-          </NavLink>
-          <NavLink to="/reservations">
-            <BookCheck className="h-4 w-4" />
-            Reservas
-          </NavLink>
-          <NavLink to="/orders">
-            <Banknote className="h-4 w-4" />
-            Pagamentos
-          </NavLink>
-          <NavLink to="/schedules">
-            <CalendarDays className="h-4 w-4" />
-            Horarios
-          </NavLink>
-          <NavLink to="/courts">
-            <IconSoccerField className="h-4 w-4" />
-            Quadras
-          </NavLink>
-          <NavLink to="/teste">
-            <CalendarDays className="h-4 w-4" />
-            testes
-          </NavLink>
-        </nav>
-        <div className="ml-auto flex items-center gap-2">
-          <ThemeToggle />
-          <AccountMenu />
-        </div>
-      </div>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">Open</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>Menu</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+          <DropdownMenuRadioItem value="top"> <NavLink to="/">Início</NavLink></DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="top"><NavLink to="/reservations">Reservas</NavLink></DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="top"><NavLink to="/orders">Pagamentos</NavLink></DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="top"><NavLink to="/schedules">Horários</NavLink></DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="top"><NavLink to="/courts">Quadras</NavLink></DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="top"><NavLink to="/teste">Testes</NavLink></DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
