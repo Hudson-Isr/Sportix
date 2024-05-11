@@ -37,68 +37,70 @@ export function ReservationsTableFilters({
   })
 
   return (
-    <form className="flex items-center gap-2">
-      <span className="text-sm font-semibold"> Filtros:</span>
-      <div className={cn('grid gap-2', className)}>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              id="date"
-              variant={'secondary'}
-              className={cn(
-                'w-[300px] justify-start text-left font-normal',
-                !date && 'text-muted-foreground',
-              )}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date?.from ? (
-                date.to ? (
-                  <>
-                    {format(date.from, 'dd MMMM yyyy', { locale: ptBR })} -{' '}
-                    {format(date.to, 'dd MMMM yyyy', { locale: ptBR })}
-                  </>
+    <form className="flex gap-2 flex-col items-start">
+      <span className="text-sm font-semibold left"> Filtros:</span>
+        <div className="flex items-center gap-2 flex-col grid grid-cols-2">
+        <div className={cn('grid gap-2', className)}>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                id="date"
+                variant={'secondary'}
+                className={cn(
+                  'justify-start text-left font-normal',
+                  !date && 'text-muted-foreground',
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date?.from ? (
+                  date.to ? (
+                    <>
+                      {format(date.from, 'dd MMMM yyyy', { locale: ptBR })} -{' '}
+                      {format(date.to, 'dd MMMM yyyy', { locale: ptBR })}
+                    </>
+                  ) : (
+                    format(date.from, 'LLL dd, y')
+                  )
                 ) : (
-                  format(date.from, 'LLL dd, y')
-                )
-              ) : (
-                <span>Selecione as Datas</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              initialFocus
-              mode="range"
-              defaultMonth={date?.from}
-              selected={date}
-              onSelect={setDate}
-              numberOfMonths={2}
-              locale={ptBR}
-            />
-          </PopoverContent>
-        </Popover>
+                  <span>Selecione as Datas</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                initialFocus
+                mode="range"
+                defaultMonth={date?.from}
+                selected={date}
+                onSelect={setDate}
+                numberOfMonths={2}
+                locale={ptBR}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+        <Select defaultValue="all">
+          <SelectTrigger className="h-10 w-[180px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Todos Status</SelectItem>
+            <SelectItem value="pending">Fixo</SelectItem>
+            <SelectItem value="reserved">Reservado</SelectItem>
+            <SelectItem value="free">Jogo Livre</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Button type="submit" variant="secondary">
+          <Search className="2-4 mr-2 h-4" />
+          Filtrar Resultados
+        </Button>
+
+        <Button type="button" variant="destructive">
+          <X className="2-4 mr-2 h-4" />
+          Remover Filtros
+        </Button>
       </div>
-      <Select defaultValue="all">
-        <SelectTrigger className="h-8 w-[180px]">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Todos Status</SelectItem>
-          <SelectItem value="pending">Fixo</SelectItem>
-          <SelectItem value="reserved">Reservado</SelectItem>
-          <SelectItem value="free">Jogo Livre</SelectItem>
-        </SelectContent>
-      </Select>
-
-      <Button type="submit" variant="secondary" size="xs">
-        <Search className="2-4 mr-2 h-4" />
-        Filtrar Resultados
-      </Button>
-
-      <Button type="button" variant="destructive" size="xs">
-        <X className="2-4 mr-2 h-4" />
-        Remover Filtros
-      </Button>
     </form>
   )
 }
