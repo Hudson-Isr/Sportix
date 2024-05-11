@@ -11,17 +11,17 @@ export function Dashboard() {
   return (
     <>
       <Helmet title="Dashboard" />
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-5 ">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
 
-        <div className="grid grid-cols-1 gap-1">
+        <div className="grid-cols-4 gap-5 md:grid">
           <MonthRevenueCard />
           <MonthOrdersAmountCard />
           <DayOrdersAmountCard />
           <MonthCanceledOrdersAmountCard />
         </div>
 
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid-cols-9 gap-4 md:grid">
           <RevenueChart />
           <PopularHoursDayCard />
         </div>
