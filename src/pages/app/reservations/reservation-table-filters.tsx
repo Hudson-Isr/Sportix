@@ -37,9 +37,9 @@ export function ReservationsTableFilters({
   })
 
   return (
-    <form className="flex gap-2 flex-col items-start">
-      <span className="text-sm font-semibold left"> Filtros:</span>
-        <div className="flex items-center gap-2 flex-col grid grid-cols-2">
+    <form className="flex flex-col items-start gap-2">
+      <span className="left text-sm font-semibold"> Filtros:</span>
+      <div className="flex grid grid-cols-2 flex-col items-center gap-2">
         <div className={cn('grid gap-2', className)}>
           <Popover>
             <PopoverTrigger asChild>

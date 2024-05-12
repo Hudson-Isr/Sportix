@@ -23,7 +23,7 @@ export function PopularHoursDayCard() {
       <CardHeader className="pb-8">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-medium">
-            Quantidade de horas mais popular.
+            Quantidade de horas mais popular
           </CardTitle>
           <BarChart className="h-4 w-4 text-muted-foreground" />
         </div>
@@ -63,7 +63,7 @@ export function PopularHoursDayCard() {
                     textAnchor={x > cx ? 'start' : 'end'}
                     dominantBaseline="central"
                   >
-                    {data[index].hours.substring(0, 12).concat('...')}({value})
+                    {data[index].hours.substring(0, 12).concat(' - ')}({value})
                   </text>
                 )
               }}

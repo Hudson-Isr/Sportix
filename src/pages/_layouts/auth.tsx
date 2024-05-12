@@ -3,15 +3,15 @@ import { Outlet } from 'react-router-dom'
 
 import { ThemeToggle } from '@/components/theme/theme-toggle'
 
-import { CarouselPlugin } from './carousel-sign'
+import { CarouselPlugin } from '../carousel-sign'
 
 export function AuthLayout() {
   return (
     <div className="min-h-screen grid-cols-2 antialiased lg:grid lg:grid-cols-2">
-      <div className="relative flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         <Outlet />
       </div>
-      <div className="flex h-full flex-col justify-between border-r border-foreground/5 bg-muted p-10 text-muted-foreground">
+      <div className="flex flex-col justify-between border-r border-foreground/5 bg-muted p-10 text-muted-foreground">
         <div className="flex items-center justify-between gap-3 text-lg font-medium text-foreground">
           <div className="flex items-center gap-3">
             <LandPlot className="h-5 w-5" />

@@ -6,20 +6,15 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel'
 
 export function CarouselPlugin() {
-  const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true }),
-  )
+  const plugin = React.useRef(Autoplay({ delay: 1500 }))
 
   return (
     <Carousel
       plugins={[plugin.current]}
       className="justify-center"
-      onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
@@ -35,8 +30,6 @@ export function CarouselPlugin() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious /> {/* Ajustes dos botoes  */}
-      <CarouselNext />
     </Carousel>
   )
 }
