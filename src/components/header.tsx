@@ -1,6 +1,6 @@
 import { IconSoccerField } from '@tabler/icons-react'
 import {
-  Banknote,
+  // Banknote,
   BookCheck,
   CalendarDays,
   Home,
@@ -16,6 +16,8 @@ import { NavLink } from './nav-link'
 import { ThemeToggle } from './theme/theme-toggle'
 import { Separator } from './ui/separator'
 
+export interface HeaderProps {}
+
 export function Header() {
   return (
     <div className="border-b">
@@ -29,45 +31,30 @@ export function Header() {
           <Separator orientation="vertical" className="h-6" />
         </NavLink>
         <nav className="hidden text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:space-x-6">
-          <NavLink
-            to="/"
-            className="flex gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <NavLink to="/">
             <Home className="h-4 w-4" />
             Dashboard
           </NavLink>
-          <NavLink
-            to="/reservations"
-            className="flex gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <NavLink to="/reservations">
             <BookCheck className="h-4 w-4" />
             Reservas
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/orders"
-            className="flex gap-2 text-muted-foreground transition-colors hover:text-foreground"
+
           >
             <Banknote className="h-4 w-4" />
             Pagamentos
-          </NavLink>
-          <NavLink
-            to="/schedules"
-            className="flex gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          >
+          </NavLink> */}
+          <NavLink to="/schedules">
             <CalendarDays className="h-4 w-4" />
             Horarios
           </NavLink>
-          <NavLink
-            to="/courts"
-            className="flex gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <NavLink to="/courts">
             <IconSoccerField className="h-4 w-4" />
             Quadras
           </NavLink>
-          <NavLink
-            to="/teste"
-            className="flex gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <NavLink to="/teste">
             <CalendarDays className="h-4 w-4" />
             testes
           </NavLink>
@@ -93,50 +80,35 @@ export function Header() {
                 <span className="sr-only">Início</span>
               </NavLink>
 
-              <NavLink
-                to="/"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
+              <NavLink to="/">
                 <Home className="h-4 w-4" />
                 Dashboard
               </NavLink>
 
-              <NavLink
-                to="/reservations"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
+              <NavLink to="/reservations">
                 <BookCheck className="h-4 w-4" />
                 Reservas
               </NavLink>
 
-              <NavLink
+              {/* <NavLink
                 to="/orders"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+
               >
                 <Banknote className="h-4 w-4" />
                 Pagamentos
-              </NavLink>
+              </NavLink> */}
 
-              <NavLink
-                to="/schedules"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
+              <NavLink to="/schedules">
                 <CalendarDays className="h-4 w-4" />
                 Horarios
               </NavLink>
 
-              <NavLink
-                to="/courts"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
+              <NavLink to="/courts">
                 <IconSoccerField className="h-4 w-4" />
                 Quadras
               </NavLink>
 
-              <NavLink
-                to="/teste"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
+              <NavLink to="/teste">
                 <CalendarDays className="h-4 w-4" />
                 testes
               </NavLink>

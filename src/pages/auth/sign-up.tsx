@@ -86,7 +86,7 @@ export function SignUp() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="name">CPF</Label>
+              <Label htmlFor="cpf">CPF</Label>
               <Input
                 id="cpf"
                 type="text"
