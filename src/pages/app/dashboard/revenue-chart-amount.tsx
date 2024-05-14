@@ -32,9 +32,6 @@ const data = [
   { name: 'Dezembro', date: '12', revenue: 6457 },
 ]
 
-const getIntroOfPage = (label) => {
-  return ''
-}
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (

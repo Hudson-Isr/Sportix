@@ -11,13 +11,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 
 export function SchedulesTableFilters({
@@ -27,7 +20,7 @@ export function SchedulesTableFilters({
     from: new Date(),
   })
   return (
-    <form className="flex items-center gap-2">
+    <form className="flex flex-col items-center gap-4 sm:flex-row">
       <span className="text-sm font-semibold"> Filtros:</span>
       <div className={cn('grid gap-2', className)}>
         <Popover>
@@ -36,7 +29,7 @@ export function SchedulesTableFilters({
               id="date"
               variant={'secondary'}
               className={cn(
-                'w-[300px] justify-start text-left font-normal',
+                'w-[320px] justify-start text-left font-normal',
                 !date && 'text-muted-foreground',
               )}
             >
@@ -48,7 +41,7 @@ export function SchedulesTableFilters({
                     {format(date.to, 'dd MMMM yyyy', { locale: ptBR })}
                   </>
                 ) : (
-                  format(date.from, 'LLL dd, y')
+                  format(date.from, 'dd MMMM yyyy', { locale: ptBR })
                 )
               ) : (
                 <span>Selecione as Datas</span>
@@ -67,27 +60,17 @@ export function SchedulesTableFilters({
           </PopoverContent>
         </Popover>
       </div>
-      <Select defaultValue="all">
-        <SelectTrigger className="h-8 w-[200px]">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Todos Status</SelectItem>
-          <SelectItem value="pending">Livre</SelectItem>
-          <SelectItem value="reserved">Reservado</SelectItem>
-          <SelectItem value="free">Jogo Livre</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="flex gap-2">
+        <Button type="submit" variant="secondary" size="xs">
+          <Search className="2-4 mr-2 h-4" />
+          Filtrar Resultados
+        </Button>
 
-      <Button type="submit" variant="secondary" size="xs">
-        <Search className="2-4 mr-2 h-4" />
-        Filtrar Resultados
-      </Button>
-
-      <Button type="button" variant="destructive" size="xs">
-        <X className="2-4 mr-2 h-4" />
-        Remover Filtros
-      </Button>
+        <Button type="button" variant="destructive" size="xs">
+          <X className="2-4 mr-2 h-4" />
+          Remover Filtros
+        </Button>
+      </div>
     </form>
   )
 }
