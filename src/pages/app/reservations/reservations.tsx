@@ -18,7 +18,7 @@ export function Reservations() {
       <Helmet title="Reservas" />
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Reservas</h1>
-        <div className="space-y-2.5">
+        <div className="space-y-5">
           <ReservationsTableFilters />
           <div className="boder rounded-md">
             <Table>
@@ -26,8 +26,10 @@ export function Reservations() {
                 <TableRow>
                   <TableHead className="w-[140px]">Dia</TableHead>
                   <TableHead className="w-[140px]">Horario</TableHead>
+                  <TableHead className="w-[140px]">Quadra</TableHead>
                   <TableHead className="w-[140px]">Cliente</TableHead>
                   <TableHead className="w-[140px]">Recorrente</TableHead>
+                  <TableHead className="w-[140px]"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

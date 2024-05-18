@@ -1,7 +1,9 @@
 import { api } from '@/lib/axios'
 
-interface GetProfileResponse {
+export interface GetProfileResponse {
   name: string
+  email: string
+  senha: string
 }
 
 export async function getProfile() {

@@ -5,7 +5,7 @@ import { AuthLayout } from './pages/_layouts/auth'
 import { NotFound } from './pages/404'
 import { Courts } from './pages/app/courts/courts'
 import { Dashboard } from './pages/app/dashboard/dashboard'
-import { Orders } from './pages/app/orders/orders'
+// import { Orders } from './pages/app/orders/orders'
 import { Reservations } from './pages/app/reservations/reservations'
 import { Schedules } from './pages/app/schedules/schedules'
 import { DataTableDemo } from './pages/app/teste'
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { path: '/', element: <Dashboard /> },
-      { path: '/orders', element: <Orders /> },
+      // { path: '/orders', element: <Orders /> },
       { path: '/schedules', element: <Schedules /> },
       { path: '/reservations', element: <Reservations /> },
       { path: '/teste', element: <DataTableDemo /> },

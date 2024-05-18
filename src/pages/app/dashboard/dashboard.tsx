@@ -5,24 +5,28 @@ import { MonthCanceledOrdersAmountCard } from './month-canceled-orders-amount-ca
 import { MonthOrdersAmountCard } from './month-orders-amount-card'
 import { MonthRevenueCard } from './month-revenue-card'
 import { PopularHoursDayCard } from './popular-hours-day-card'
-import { RevenueChart } from './revenue-chart'
+import { RevenueChartAmount } from './revenue-chart-amount'
+import { RevenueChartDay } from './revenue-chart-day'
 
 export function Dashboard() {
   return (
     <>
       <Helmet title="Dashboard" />
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-5 ">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
 
-        <div className="grid grid-cols-1 gap-1">
+        <div className="grid gap-4 lg:grid-cols-4">
           <MonthRevenueCard />
           <MonthOrdersAmountCard />
           <DayOrdersAmountCard />
           <MonthCanceledOrdersAmountCard />
         </div>
 
-        <div className="grid grid-cols-2 gap-1">
-          <RevenueChart />
+        <div className="grid gap-4">
+          <RevenueChartDay />
+          <RevenueChartAmount />
+        </div>
+        <div className="grid grid-cols-3">
           <PopularHoursDayCard />
         </div>
       </div>

@@ -52,9 +52,6 @@ export function SignIn() {
     <>
       <Helmet title="Login" />
       <div className="p-8">
-        <Button asChild className="absolute right-8 top-8">
-          <Link to="/sign-up">Criar Conta</Link>
-        </Button>
         <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
@@ -85,6 +82,9 @@ export function SignIn() {
             </div>
             <Button disabled={isSubmitting} className="w-full" type="submit">
               login
+            </Button>
+            <Button asChild className="w-full" variant="secondary">
+              <Link to="/sign-up">Criar Conta</Link>
             </Button>
           </form>
         </div>

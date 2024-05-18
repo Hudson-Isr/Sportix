@@ -1,14 +1,36 @@
+import {
+  ColumnFiltersState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+  VisibilityState,
+} from '@tanstack/react-table'
 import React from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
 import {
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+
+import { columns, data } from './schedules-table-row'
 
 export function SchedulesDetails() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -36,40 +58,121 @@ export function SchedulesDetails() {
     }
   }
 
+  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  )
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
+
+  const table = useReactTable({
+    data,
+    columns,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: {
+      sorting,
+      columnFilters,
+      columnVisibility,
+    },
+  })
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>ARENA: ___</DialogTitle>
-        <DialogDescription>Filial: Juazeiro</DialogDescription>
+        <DialogTitle>ARENA: Sportix</DialogTitle>
+        <DialogDescription>Filial: Tiradente</DialogDescription>
       </DialogHeader>
 
-      <div className="space-y-6">
+      <div className="boder space-y-6 rounded-md">
         <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers
+                  .filter((header) => header.id !== 'select')
+                  .map((header) => (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  ))}
+              </TableRow>
+            ))}
+          </TableHeader>
           <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table
+                .getRowModel()
+                .rows.slice(0, 3)
+                .map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                  >
+                    {row
+                      .getVisibleCells()
+                      .filter((_cell, index) => index !== 0)
+                      .map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                  </TableRow>
+                ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+          <TableFooter>
             <TableRow>
-              <TableCell className="text-muted-foreground">Status</TableCell>
-              <TableCell className="flex  justify-end">
-                <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-green-400"></span>
-                  <span className="font-medium text-muted-foreground">
-                    Livre
-                  </span>
-                </div>
+              <TableCell colSpan={3}>Desconto</TableCell>
+              <TableCell className="text-right text-red-500">
+                R$ 30.00
               </TableCell>
             </TableRow>
-          </TableBody>
+            <TableRow>
+              <TableCell colSpan={3}>Total</TableCell>
+              <TableCell className="text-right">R$ 130.00</TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleReserved()
-          }}
-          className="flex justify-center space-y-6"
-        >
-          <Button disabled={isSubmitting} type="submit">
-            Reserve Agora
-          </Button>
-        </form>
+        <DialogFooter>
+          <div className="flex justify-center gap-5">
+            <DialogClose asChild>
+              <Button type="button" variant="destructive">
+                Cancelar
+              </Button>
+            </DialogClose>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                handleReserved()
+              }}
+            >
+              <Button disabled={isSubmitting} type="submit" variant="sucessed">
+                Reserve Agora
+              </Button>
+            </form>
+          </div>
+        </DialogFooter>
       </div>
     </DialogContent>
   )
