@@ -1,12 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { getProfile } from '@/api/get-profile'
+import { getProfile, GetProfileResponse } from '@/api/get-profile'
+import { updateProfile } from '@/api/update-profile'
 
 import { Button } from './ui/button'
 import {
-  Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -16,9 +19,8 @@ import {
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 
-const profileDialogSchema = z.objects({
+const profileDialogSchema = z.object({
   name: z.string().min(1),
-  apelido: z.string(),
   email: z.string(),
   senha: z.string(),
 })
@@ -26,23 +28,56 @@ const profileDialogSchema = z.objects({
 type profileDialogSchema = z.infer<typeof profileDialogSchema>
 
 export function ProfileDialog() {
+  const queryClient = useQueryClient()
+
   const { data: profile } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
+    staleTime: Infinity,
   })
 
-  const { register, handleSubmit } = useForm<profileDialogSchema>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<profileDialogSchema>({
     resolver: zodResolver(profileDialogSchema),
-    defaultValues{
-        name: profile?.name
-        email: profile?.email
-    }
+    values: {
+      name: profile?.name ?? '',
+      email: profile?.email ?? '',
+      senha: profile?.senha ?? '',
+    },
   })
-  // const { mutateAsync: updateProfileFn } = useMutation({
-  //     mutation: updateProfile,
-  // })
 
-  // async function updateProfile(data: )
+  const { mutateAsync: updateProfileFn } = useMutation({
+    mutationFn: updateProfile,
+    onSuccess(_, { name, email, senha }) {
+      const cached = queryClient.getQueryData<GetProfileResponse>(['profile'])
+
+      if (cached) {
+        queryClient.setQueryData<GetProfileResponse>(['profile'], {
+          ...cached,
+          name,
+          email,
+          senha,
+        })
+      }
+    },
+  })
+
+  async function handleUpdateProfile(data: profileDialogSchema) {
+    try {
+      await updateProfileFn({
+        name: data.name,
+        email: data.email,
+        senha: data.senha,
+      })
+
+      toast.success('Perfil atualizado com sucesso!')
+    } catch {
+      toast.error('Falha ao atualizar o perfil, tente novamente!')
+    }
+  }
 
   return (
     <DialogContent>
@@ -53,13 +88,18 @@ export function ProfileDialog() {
         </DialogDescription>
       </DialogHeader>
 
-      <form>
+      <form onSubmit={handleSubmit(handleUpdateProfile)}>
         <div className="space-y-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="name">
               Nome
             </Label>
-            <Input className="col-span-3" id="name" type="text" />
+            <Input
+              className="col-span-3"
+              id="name"
+              type="text"
+              {...register('name')}
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="apelido">
@@ -71,20 +111,32 @@ export function ProfileDialog() {
             <Label className="text-right" htmlFor="email">
               E-mail
             </Label>
-            <Input className="col-span-3" id="email" type="email" />
+            <Input
+              className="col-span-3"
+              id="email"
+              type="email"
+              {...register('email')}
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="password">
               Senha
             </Label>
-            <Input className="col-span-3" id="password" type="password" />
+            <Input
+              className="col-span-3"
+              id="password"
+              type="password"
+              {...register('senha')}
+            />
           </div>
         </div>
         <DialogFooter>
-          <Button variant="ghost" type="button">
-            Cancelar
-          </Button>
-          <Button variant="sucessed" type="submit">
+          <DialogClose asChild>
+            <Button variant="ghost" type="button">
+              Cancelar
+            </Button>
+          </DialogClose>
+          <Button variant="sucessed" type="submit" disabled={isSubmitting}>
             Salvar
           </Button>
         </DialogFooter>

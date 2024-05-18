@@ -4,14 +4,14 @@ interface UpdateProfileBody {
   name: string
   email: string
   senha: string
-  apelido: string | null
+  //  apelido: string | null
 }
 
 export async function updateProfile({
   name,
   email,
   senha,
-  apelido,
+  // apelido,
 }: UpdateProfileBody) {
-  await api.put('/profile', { name, email, senha, apelido })
+  await api.put('/user', { name, email, senha })
 }
