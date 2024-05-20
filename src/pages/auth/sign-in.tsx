@@ -33,9 +33,24 @@ export function SignIn() {
     mutationFn: signIn,
   })
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function getTokenFromLocalStorage() {
+    try {
+      const token = localStorage.getItem('access_token')
+      return token
+    } catch {
+      throw new Error('Token não encontrado')
+    }
+  }
+
   async function handleSignIn(data: SignInForm) {
     try {
-      await login({ email: data.email, password: data.password })
+      const responsedData = await login({
+        email: data.email,
+        password: data.password,
+      })
+
+      localStorage.setItem('access_token', responsedData.access_token)
 
       toast.success('Foi enviado um link para autenticação em seu E-mail', {
         action: {
