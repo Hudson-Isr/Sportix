@@ -54,10 +54,6 @@ export function Header() {
             <IconSoccerField className="h-4 w-4" />
             Quadras
           </NavLink>
-          <NavLink to="/teste">
-            <CalendarDays className="h-4 w-4" />
-            testes
-          </NavLink>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -106,11 +102,6 @@ export function Header() {
               <NavLink to="/courts">
                 <IconSoccerField className="h-4 w-4" />
                 Quadras
-              </NavLink>
-
-              <NavLink to="/teste">
-                <CalendarDays className="h-4 w-4" />
-                testes
               </NavLink>
             </nav>
           </SheetContent>
