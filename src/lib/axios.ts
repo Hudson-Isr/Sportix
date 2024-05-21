@@ -14,3 +14,16 @@ if (env.VITE_ENABLE_API_DELAY) {
     return config
   })
 }
+
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('access_token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -18,6 +18,7 @@ type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn() {
   const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -33,16 +34,6 @@ export function SignIn() {
     mutationFn: signIn,
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function getTokenFromLocalStorage() {
-    try {
-      const token = localStorage.getItem('access_token')
-      return token
-    } catch {
-      throw new Error('Token não encontrado')
-    }
-  }
-
   async function handleSignIn(data: SignInForm) {
     try {
       const responsedData = await login({
@@ -55,7 +46,7 @@ export function SignIn() {
       toast.success('Foi enviado um link para autenticação em seu E-mail', {
         action: {
           label: 'Reenviar',
-          onClick: () => handleSignIn(data),
+          onClick: () => navigate('/'),
         },
       })
     } catch {
