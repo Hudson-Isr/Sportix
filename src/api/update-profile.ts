@@ -2,16 +2,16 @@ import { api } from '@/lib/axios'
 
 interface UpdateProfileBody {
   name: string
-  email: string
-  senha: string
+  cpf: string
+  phoneNumber: string
   //  apelido: string | null
 }
 
 export async function updateProfile({
   name,
-  email,
-  senha,
+  cpf,
+  phoneNumber,
   // apelido,
 }: UpdateProfileBody) {
-  await api.put('/user', { name, email, senha })
+  await api.put('/user/editUser', { name, cpf, phoneNumber })
 }

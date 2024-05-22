@@ -33,6 +33,7 @@ export function AccountMenu() {
       navigate('/sing-in', { replace: true })
     },
   })
+
   return (
     <Dialog>
       <DropdownMenu>

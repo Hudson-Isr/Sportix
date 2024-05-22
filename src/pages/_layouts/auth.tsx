@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 import { ThemeToggle } from '@/components/theme/theme-toggle'
 
-import { CarouselPlugin } from '../carousel-sign'
+import { CarouselPlugin } from '../../components/carousel-sign'
 
 export function AuthLayout() {
   return (

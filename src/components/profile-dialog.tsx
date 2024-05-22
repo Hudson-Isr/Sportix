@@ -23,6 +23,8 @@ const profileDialogSchema = z.object({
   name: z.string().min(1),
   email: z.string(),
   senha: z.string(),
+  cpf: z.string(),
+  phoneNumber: z.string(),
 })
 
 type profileDialogSchema = z.infer<typeof profileDialogSchema>
@@ -46,20 +48,22 @@ export function ProfileDialog() {
       name: profile?.name ?? '',
       email: profile?.email ?? '',
       senha: profile?.senha ?? '',
+      cpf: profile?.cpf ?? '',
+      phoneNumber: profile?.phoneNumber ?? '',
     },
   })
 
   const { mutateAsync: updateProfileFn } = useMutation({
     mutationFn: updateProfile,
-    onSuccess(_, { name, email, senha }) {
+    onSuccess(_, { name, cpf, phoneNumber }) {
       const cached = queryClient.getQueryData<GetProfileResponse>(['profile'])
 
       if (cached) {
         queryClient.setQueryData<GetProfileResponse>(['profile'], {
           ...cached,
           name,
-          email,
-          senha,
+          cpf,
+          phoneNumber,
         })
       }
     },
@@ -69,8 +73,8 @@ export function ProfileDialog() {
     try {
       await updateProfileFn({
         name: data.name,
-        email: data.email,
-        senha: data.senha,
+        cpf: data.cpf,
+        phoneNumber: data.phoneNumber,
       })
 
       toast.success('Perfil atualizado com sucesso!')
@@ -101,12 +105,38 @@ export function ProfileDialog() {
               {...register('name')}
             />
           </div>
+
           <div className="grid grid-cols-4 items-center gap-4">
+            <Label className="text-right" htmlFor="cpf">
+              CPF
+            </Label>
+            <Input
+              className="col-span-3"
+              id="cpf"
+              type="text"
+              {...register('cpf')}
+            />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label className="text-right" htmlFor="phoneNumber">
+              Telefone
+            </Label>
+            <Input
+              className="col-span-3"
+              id="phoneNumber"
+              type="text"
+              {...register('phoneNumber')}
+            />
+          </div>
+
+          {/* <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="apelido">
               Apelido
             </Label>
             <Input className="col-span-3" id="apelido" type="text" />
           </div>
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="email">
               E-mail
@@ -118,6 +148,7 @@ export function ProfileDialog() {
               {...register('email')}
             />
           </div>
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="password">
               Senha
@@ -128,7 +159,7 @@ export function ProfileDialog() {
               type="password"
               {...register('senha')}
             />
-          </div>
+          </div> */}
         </div>
         <DialogFooter>
           <DialogClose asChild>
@@ -136,9 +167,11 @@ export function ProfileDialog() {
               Cancelar
             </Button>
           </DialogClose>
-          <Button variant="sucessed" type="submit" disabled={isSubmitting}>
-            Salvar
-          </Button>
+          <DialogClose asChild>
+            <Button variant="sucessed" type="submit" disabled={isSubmitting}>
+              Salvar
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </form>
     </DialogContent>
