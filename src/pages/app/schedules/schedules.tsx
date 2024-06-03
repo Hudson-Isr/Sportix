@@ -140,7 +140,6 @@ export function Schedules() {
                 <DialogTrigger asChild>
                   <Button
                     size="xs"
-                    className="hover:bg-primary"
                     onClick={handleCloseSchedule}
                     // disabled={!table.getCanPreviousPage()}
                   >
