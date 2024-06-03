@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   Bar,
   BarChart,
@@ -9,6 +10,7 @@ import {
 } from 'recharts'
 import colors from 'tailwindcss/colors'
 
+import { GetRevenuePerMonth, getRevenuePerMonth } from '@/api/dashboard'
 import {
   Card,
   CardContent,
@@ -16,21 +18,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-
-const data = [
-  { name: 'Janeiro', date: '01', revenue: 7052 },
-  { name: 'Fevereiro', date: '02', revenue: 5555 },
-  { name: 'Março', date: '03', revenue: 6954 },
-  { name: 'Abril', date: '04', revenue: 4500 },
-  { name: 'Maio', date: '05', revenue: 4534 },
-  { name: 'Junho', date: '06', revenue: 6235 },
-  { name: 'Julho', date: '07', revenue: 5132 },
-  { name: 'Agosto', date: '08', revenue: 4586 },
-  { name: 'Setembro', date: '09', revenue: 6594 },
-  { name: 'Outubro', date: '10', revenue: 3526 },
-  { name: 'Novembro', date: '11', revenue: 5689 },
-  { name: 'Dezembro', date: '12', revenue: 6457 },
-]
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -45,6 +32,36 @@ const CustomTooltip = ({ active, payload, label }) => {
 }
 
 export function RevenueChartAmount() {
+  const [data, setData] = useState<GetRevenuePerMonth | null>(null)
+
+  useEffect(() => {
+    getRevenuePerMonth()
+      .then((response) => {
+        setData(response)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error)
+      })
+  }, [])
+
+  if (!data) {
+    return <div>Loading...</div> // Se os dados ainda não foram carregados, exibe uma mensagem de carregamento
+  }
+
+  const dataReturn = [
+    { name: 'Janeiro', revenue: data.january },
+    { name: 'Fevereiro', revenue: data.february },
+    { name: 'Março', revenue: data.march },
+    { name: 'Abril', revenue: data.april },
+    { name: 'Maio', revenue: data.may },
+    { name: 'Junho', revenue: data.june },
+    { name: 'Julho', revenue: data.july },
+    { name: 'Agosto', revenue: data.august },
+    { name: 'Setembro', revenue: data.september },
+    { name: 'Outubro', revenue: data.october },
+    { name: 'Novembro', revenue: data.november },
+    { name: 'Dezembro', revenue: data.december },
+  ]
   return (
     <Card className="col-span-6">
       <CardHeader className="flex-row items-center justify-between pb-8">
@@ -57,7 +74,7 @@ export function RevenueChartAmount() {
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={240}>
-          <BarChart data={data} barSize={30}>
+          <BarChart data={dataReturn} barSize={30}>
             <YAxis
               stroke="#888"
               style={{ fontSize: 11 }}
