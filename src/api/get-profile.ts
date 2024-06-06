@@ -6,7 +6,7 @@ export interface GetProfileResponse {
   email: string
   senha: string
   phoneNumber: string
-  court: string
+  isOwner: boolean
 }
 
 export async function getProfile() {

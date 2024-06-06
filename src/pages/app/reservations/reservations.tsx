@@ -16,15 +16,22 @@ import { ReservationsTableRow } from './reservations-table-row'
 export function Reservations() {
   const [reservations, setReservations] = useState<Reservation[]>([])
 
-  useEffect(() => {
-    // Simulação de chamada API para obter reservas
-    const fetchReservations = async () => {
+  const fetchReservations = async () => {
+    try {
       const response = await getReservations()
       setReservations(response)
+    } catch (error) {
+      console.error('Erro ao buscar reservas:', error)
     }
+  }
 
+  useEffect(() => {
     fetchReservations()
   }, [])
+
+  const handleReservationCancelled = () => {
+    fetchReservations()
+  }
 
   if (reservations.length === 0) {
     return <div>Loading...</div>
@@ -38,22 +45,26 @@ export function Reservations() {
         <div className="space-y-5">
           <ReservationsTableFilters />
 
-          <div className=" rounded-md">
+          <div className="rounded-md">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[140px]">Dia</TableHead>
-                  <TableHead className="w-[140px]">Horario</TableHead>
-                  <TableHead className="w-[140px]">Quadra</TableHead>
-                  <TableHead className="w-[140px]">Cliente</TableHead>
-                  <TableHead className="w-[140px]">Recorrente</TableHead>
-                  <TableHead className="w-[140px]"></TableHead>
+                  <TableHead className="w-[130px]">Dia</TableHead>
+                  <TableHead className="w-[130px]">Horario</TableHead>
+                  <TableHead className="w-[130px]">Quadra</TableHead>
+                  <TableHead className="w-[130px]">Cliente</TableHead>
+                  <TableHead className="w-[130px]">Status</TableHead>
+                  <TableHead className="w-[130px]">Recorrente</TableHead>
+                  <TableHead className="w-[130px]"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {reservations.map((r) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <ReservationsTableRow reservation={r} />
+                  <ReservationsTableRow
+                    key={r.object.id}
+                    reservation={r}
+                    onReservationCancelled={handleReservationCancelled}
+                  />
                 ))}
               </TableBody>
             </Table>

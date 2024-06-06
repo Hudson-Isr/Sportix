@@ -5,10 +5,10 @@ export interface RegisterCourt {
   road: string
   neighborhood: string
   city: string
-  number: string
+  number: number
   reference: string
 }
 
-export async function signUp(register: RegisterCourt) {
-  await api.post('/user/create', register)
+export async function createCourt(register: RegisterCourt) {
+  await api.post('/court/create', register)
 }

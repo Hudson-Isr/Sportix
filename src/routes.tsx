@@ -4,6 +4,9 @@ import { AppLayout } from './pages/_layouts/app'
 import { AuthLayout } from './pages/_layouts/auth'
 import { NotFoundAdmin } from './pages/404-admin'
 import { NotFoundUser } from './pages/404-user'
+import { CourtInfo } from './pages/app/clientCourts/courtInfo'
+import { ClientCourts } from './pages/app/clientCourts/courts'
+import { ClientReservations } from './pages/app/clientReservations/clientReservations'
 import { Courts } from './pages/app/courts/courts'
 import { Dashboard } from './pages/app/dashboard/dashboard'
 import { Reservations } from './pages/app/reservations/reservations'
@@ -44,9 +47,32 @@ export const router = createBrowserRouter([
         path: '/courts',
         element: isAdmin() ? <Courts /> : <NotFoundUser /> || <NotFoundAdmin />,
       },
+      {
+        path: '/clientCourts',
+        element: isAdmin() ? (
+          <ClientCourts />
+        ) : (
+          <NotFoundUser /> || <NotFoundAdmin />
+        ),
+      },
+      {
+        path: '/clientReservations',
+        element: isAdmin() ? (
+          <ClientReservations />
+        ) : (
+          <NotFoundUser /> || <NotFoundAdmin />
+        ),
+      },
+      {
+        path: '/courtInfo/:id/:date',
+        element: isAdmin() ? (
+          <CourtInfo />
+        ) : (
+          <NotFoundUser /> || <NotFoundAdmin />
+        ),
+      },
     ],
   },
-
   {
     path: '/',
     element: <AuthLayout />,

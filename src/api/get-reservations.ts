@@ -1,13 +1,19 @@
 import { api } from '@/lib/axios'
 
-export interface Reservation {
+export interface ReservationObject {
   id: string
-  court: string
-  client: string
   date: string
   hour: string
   status: string
+}
+
+export interface Reservation {
+  object: ReservationObject
+  court: string
+  client: string
   isRecurrence: boolean
+  cancelable: boolean
+  status: string
 }
 
 export async function getReservations() {
