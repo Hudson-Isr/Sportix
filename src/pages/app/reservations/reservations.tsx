@@ -20,7 +20,7 @@ export function Reservations() {
         <h1 className="text-3xl font-bold tracking-tight">Reservas</h1>
         <div className="space-y-5">
           <ReservationsTableFilters />
-          <div className="boder rounded-md">
+          <div className=" rounded-md">
             <Table>
               <TableHeader>
                 <TableRow>
