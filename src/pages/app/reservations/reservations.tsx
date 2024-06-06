@@ -10,6 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { ReservationsTableFilters } from './reservation-table-filters'
 import { ReservationsTableRow } from './reservations-table-row'
 
 export function Reservations() {
@@ -33,30 +34,31 @@ export function Reservations() {
     <>
       <Helmet title="Quadras" />
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold tracking-tight">Quadras</h1>
-        <div className="space-y-2.5">
-          <span className="text-sm font-semibold">
-            Seja bem-vindo ao sistema de gerenciamento de Quadras.
-          </span>
+        <h1 className="text-3xl font-bold tracking-tight">Reservas</h1>
+        <div className="space-y-5">
+          <ReservationsTableFilters />
+
+          <div className=" rounded-md">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[140px]">Dia</TableHead>
+                  <TableHead className="w-[140px]">Horario</TableHead>
+                  <TableHead className="w-[140px]">Quadra</TableHead>
+                  <TableHead className="w-[140px]">Cliente</TableHead>
+                  <TableHead className="w-[140px]">Recorrente</TableHead>
+                  <TableHead className="w-[140px]"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {reservations.map((r) => (
+                  // eslint-disable-next-line react/jsx-key
+                  <ReservationsTableRow reservation={r} />
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[140px]">Dia</TableHead>
-              <TableHead className="w-[140px]">Horario</TableHead>
-              <TableHead className="w-[140px]">Quadra</TableHead>
-              <TableHead className="w-[140px]">Cliente</TableHead>
-              <TableHead className="w-[140px]">Recorrente</TableHead>
-              <TableHead className="w-[140px]"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {reservations.map((r) => (
-              // eslint-disable-next-line react/jsx-key
-              <ReservationsTableRow reservation={r} />
-            ))}
-          </TableBody>
-        </Table>
       </div>
     </>
   )

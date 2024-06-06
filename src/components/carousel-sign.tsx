@@ -18,12 +18,22 @@ export function CarouselPlugin() {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {[
+          '/2f5acb2212a232cf4f33ecc2d2027e1a.jpg',
+          '/beach-tennis.jpg',
+          '/Campeonato-de-Futvolei.jpg',
+          '/o-que-é-vôlei-de-praia.jpg',
+          '/volei_praia.jpeg',
+        ].map((image, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
+                  <img
+                    src={image}
+                    alt={`Image ${index + 1}`}
+                    className="h-full w-full object-cover"
+                  />
                 </CardContent>
               </Card>
             </div>
