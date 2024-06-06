@@ -1,13 +1,8 @@
 import { IconSoccerField } from '@tabler/icons-react'
-import {
-  // Banknote,
-  BookCheck,
-  CalendarDays,
-  Home,
-  LandPlot,
-  Menu,
-} from 'lucide-react'
+import { BookCheck, CalendarDays, Home, LandPlot, Menu } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
+import { getProfile } from '@/api/get-profile'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
@@ -19,6 +14,21 @@ import { Separator } from './ui/separator'
 export interface HeaderProps {}
 
 export function Header() {
+  const [isOwner, setIsOwner] = useState(false)
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const userProfile = await getProfile()
+        setIsOwner(userProfile.isOwner)
+      } catch (error) {
+        console.error('Erro ao obter perfil:', error)
+      }
+    }
+
+    fetchProfile()
+  }, [])
+
   return (
     <div className="border-b">
       <div className="flex h-14 items-center gap-6 px-6 md:px-4">
@@ -31,29 +41,37 @@ export function Header() {
           <Separator orientation="vertical" className="h-6" />
         </NavLink>
         <nav className="hidden text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:space-x-6">
-          <NavLink to="/">
-            <Home className="h-4 w-4" />
-            Dashboard
-          </NavLink>
-          <NavLink to="/reservations">
-            <BookCheck className="h-4 w-4" />
-            Reservas
-          </NavLink>
-          {/* <NavLink
-            to="/orders"
-
-          >
-            <Banknote className="h-4 w-4" />
-            Pagamentos
-          </NavLink> */}
-          <NavLink to="/schedules">
-            <CalendarDays className="h-4 w-4" />
-            Horarios
-          </NavLink>
-          <NavLink to="/courts">
-            <IconSoccerField className="h-4 w-4" />
-            Quadras
-          </NavLink>
+          {isOwner === true ? (
+            <>
+              <NavLink to="/">
+                <Home className="h-4 w-4" />
+                Dashboard
+              </NavLink>
+              <NavLink to="/reservations">
+                <BookCheck className="h-4 w-4" />
+                Reservas
+              </NavLink>
+              <NavLink to="/schedules">
+                <CalendarDays className="h-4 w-4" />
+                Horarios
+              </NavLink>
+              <NavLink to="/courts">
+                <IconSoccerField className="h-4 w-4" />
+                Quadras
+              </NavLink>
+            </>
+          ) : (
+            <>
+              <NavLink to="/clientCourts">
+                <Home className="h-4 w-4" />
+                Quadras
+              </NavLink>
+              <NavLink to="/clientReservations">
+                <BookCheck className="h-4 w-4" />
+                Reservas
+              </NavLink>
+            </>
+          )}
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -76,23 +94,17 @@ export function Header() {
                 <span className="sr-only">Início</span>
               </NavLink>
 
-              <NavLink to="/">
-                <Home className="h-4 w-4" />
-                Dashboard
-              </NavLink>
+              {isOwner === true && (
+                <NavLink to="/">
+                  <Home className="h-4 w-4" />
+                  Dashboard
+                </NavLink>
+              )}
 
               <NavLink to="/reservations">
                 <BookCheck className="h-4 w-4" />
                 Reservas
               </NavLink>
-
-              {/* <NavLink
-                to="/orders"
-
-              >
-                <Banknote className="h-4 w-4" />
-                Pagamentos
-              </NavLink> */}
 
               <NavLink to="/schedules">
                 <CalendarDays className="h-4 w-4" />

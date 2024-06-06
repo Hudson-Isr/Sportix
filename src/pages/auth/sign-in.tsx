@@ -5,6 +5,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { getProfile } from '@/api/get-profile' // Importe a função para obter o perfil do usuário
 import { signIn } from '@/api/sign-in'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -43,12 +44,23 @@ export function SignIn() {
 
       localStorage.setItem('access_token', responsedData.access_token)
 
-      toast.success('Foi enviado um link para autenticação em seu E-mail', {
-        action: {
-          label: 'Reenviar',
-          onClick: () => navigate('/'),
-        },
-      })
+      // Após o login bem-sucedido, obtenha o perfil do usuário
+      const userProfile = await getProfile()
+
+      if (!userProfile.isOwner) {
+        // Se o usuário não for proprietário, redirecione para a página de quadras
+        navigate('/clientCourts')
+      } else {
+        // Caso contrário, redirecione para a página inicial
+        navigate('/')
+      }
+
+      // toast.success('Foi enviado um link para autenticação em seu E-mail', {
+      //   action: {
+      //     label: 'Reenviar',
+      //     onClick: () => navigate('/'),
+      //   },
+      // })
     } catch {
       toast.error('E-mail ou Senha invalidos.')
     }

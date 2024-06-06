@@ -14,7 +14,7 @@ import { CourtsCreate } from './courts-create'
 export function Courts() {
   const [data, setData] = useState<Court[]>([])
 
-  useEffect(() => {
+  const fetchData = () => {
     getUserCourts()
       .then((response) => {
         setData(response)
@@ -22,7 +22,15 @@ export function Courts() {
       .catch((error) => {
         console.error('Error fetching data:', error)
       })
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
+
+  const handleCourtCreated = () => {
+    fetchData()
+  }
 
   if (data.length === 0) {
     return <div>Loading...</div> // Se os dados ainda não foram carregados, exibe uma mensagem de carregamento
@@ -41,15 +49,12 @@ export function Courts() {
           <div className="w-full space-y-2">
             <Dialog>
               <DialogTrigger asChild>
-                <Button
-                  size="xs"
-                  // disabled={!table.getCanPreviousPage()}
-                >
+                <Button size="xs">
                   <CirclePlus className="2-4 mr-2 h-4" />
                   Adicionar Quadra
                 </Button>
               </DialogTrigger>
-              <CourtsCreate />
+              <CourtsCreate onCourtCreated={handleCourtCreated} />
             </Dialog>
 
             <div className="space-y-3 rounded border p-4">
